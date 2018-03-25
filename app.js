@@ -43,7 +43,6 @@ weatherForecast.controller('forecastController', ['$scope', '$resource', '$route
 
     const API_KEY = 'c79786924cdbc903b723b7444a557007';
 
-    // $scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=c79786924cdbc903b723b7444a557007");
     $scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=84a29bb569b6dca74aa27273aa6d55ad&q=" + $scope.city + "&cnt=" + $scope.days)
 
     $scope.weatherResult = $scope.weatherAPI.get({ q: $scope.city, cnt: $scope.days, appid: API_KEY });
@@ -58,3 +57,19 @@ weatherForecast.controller('forecastController', ['$scope', '$resource', '$route
     };
 
 }]);
+
+//DIRECTIVE
+
+weatherForecast.directive("weatherReport", function() {
+    return {
+        restrict: 'E',
+        templateUrl: 'directive/weatherReport.html',
+        replace: true,
+        scope: {
+            weatherDay: "=",
+            convertToStandard: "&",
+            convertToDate: "&",
+            dateFormat: "@"
+        }
+    }
+})
